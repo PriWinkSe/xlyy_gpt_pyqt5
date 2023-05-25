@@ -1,0 +1,32 @@
+#QToolBar {
+    background-color: deepskyblue;
+    background-clip: padding-box;
+}
+
+#QToolBar > * {
+    background-color: deepskyblue;
+    background-clip: padding-box;
+}
+
+#QToolButton {
+    font-family: monospace;
+    text-align: center;
+    font-size: 0.9em;
+    color: #fff;
+    background: deepskyblue;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    padding: 10px 20px;
+    -webkit-appearance: none;
+}
+
+#QToolButton:hover {
+    background: dodgerblue;
+    color: #ffffff;
+    transition: 0.5s all ease;
+    -webkit-transition: 0.5s all ease;
+    -moz-transition: 0.5s all ease;
+    -o-transition: 0.5s all ease;
+    -ms-transition: 0.5s all ease;
+}
