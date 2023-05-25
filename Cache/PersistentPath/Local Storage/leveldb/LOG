@@ -1,6 +1,5 @@
-2023/05/25-18:23:56.917 5b7c Reusing MANIFEST F:\python project\chatgpt_qt5\Cache\PersistentPath\Local Storage\leveldb/MANIFEST-000001
-2023/05/25-18:23:56.918 5b7c Recovering log #403
-2023/05/25-18:23:56.918 5b7c Reusing old log F:\python project\chatgpt_qt5\Cache\PersistentPath\Local Storage\leveldb/000403.log 
-2023/05/25-18:24:25.548 64c8 Level-0 table #406: started
-2023/05/25-18:24:25.549 64c8 Level-0 table #406: 28217 bytes OK
-2023/05/25-18:24:25.550 64c8 Delete type=0 #403
+2023/05/25-18:29:10.042 4ca8 Reusing MANIFEST F:\python project\chatgpt_qt5\Cache\PersistentPath\Local Storage\leveldb/MANIFEST-000001
+2023/05/25-18:29:10.043 4ca8 Recovering log #416
+2023/05/25-18:29:10.043 4ca8 Level-0 table #418: started
+2023/05/25-18:29:10.044 4ca8 Level-0 table #418: 25889 bytes OK
+2023/05/25-18:29:10.045 4ca8 Delete type=0 #416
