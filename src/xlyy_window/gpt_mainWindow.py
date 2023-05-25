@@ -1,26 +1,45 @@
-import sys
-from PyQt5.QtCore import Qt, QSize
+import json
+
+from PyQt5.QtCore import Qt, QPoint
 from PyQt5.QtCore import QUrl
-from PyQt5.QtGui import QIcon, QMouseEvent, QFont, QPainter, QPainterPath, QCursor
-from PyQt5.QtWidgets import QMainWindow, QVBoxLayout, QWidget, QToolBar, QPushButton, QLineEdit, \
-     QSizePolicy, QAction
+from PyQt5.QtGui import QIcon, QMouseEvent, QPainter, QPainterPath, QCursor
+from PyQt5.QtWidgets import QMainWindow, QVBoxLayout, QWidget, QToolBar, QSizePolicy, QAction
 from abstract_window import AbstractWindow
-from src.common_utils.io_util import get_last_dir
-from src.xlyy_window.xlyyEngineView import PrivateEngineView
+from io_util import get_last_dir,get_center_screenGeometry
+from str_util import String
+from sys_util import xmprint
+from xlyyEngineView import PrivateEngineView
 
 
 class xlyy_GPT(QMainWindow, AbstractWindow):
     def InitWindow(self):
+        self.readConfigFile()
         self.setupWindowBasicAttributes()
         self.setupWidgets()
         self.regEvents()
         self.setWidgetFlags()
 
+    def readConfigFile(self):
+        # 获取 JSON 文件的绝对路径
+        json_path = get_last_dir(3) + '\Configs\window_settings.json'
+        # 读取 JSON 文件
+        with open(json_path, 'r') as f:
+            json_data = json.load(f)
+        # 访问 JSON 数据
+        self.first_Page:str = json_data['openUrl']  # 输出 https://poe.com/
+        self.isStoreCache:bool = json_data['isStoreCache']  # 输出 1
+        self.defaultHeight = json_data['defaultHeight']
+        self.defaultWidth = json_data['defaultWidth']
+        s = String(json_data['WindowIcon'])
+        s.replaceAll('/','\\')
+        self.windowIconPath = s.string
+        xmprint(get_last_dir(3) + self.windowIconPath)
+        self.setWindowIcon(QIcon(get_last_dir(3) + self.windowIconPath))
+
     def setupWindowBasicAttributes(self):
-        self.windowlogo = QIcon(get_last_dir(3) + '\images\logo.ico')
         self.setWindowTitle("Qt5_GPT")
-        self.setWindowIcon(self.windowlogo)
-        self.setGeometry(100, 100, 1200, 800)
+        #self.setGeometry(100, 100, 1200, 800)
+        self.setGeometry(get_center_screenGeometry(self,self.defaultHeight,self.defaultWidth))
 
     def setupWidgets(self):
         self.toolbar = QToolBar()
@@ -28,15 +47,20 @@ class xlyy_GPT(QMainWindow, AbstractWindow):
 
         actionStyle = '''
                     QToolBar {
+                        border-top-left-radius: 15px;
+                        border-top-right-radius: 15px;
                         border: 0;
                         background-color: deepskyblue;
                         background-clip: padding-box;
                     }
                     
                     QToolBar > * {
+                        border-top-left-radius: 15px;
+                        border-top-right-radius: 15px;
                         background-color: deepskyblue;
                         background-clip: padding-box;
                     }
+                    
                     
                    QToolButton {
                         font-family: monospace;
@@ -46,10 +70,15 @@ class xlyy_GPT(QMainWindow, AbstractWindow):
                         background: deepskyblue;
                         outline: none;
                         border: none;
-                        cursor: pointer;
                         padding: 10px 20px;
-                        -webkit-appearance: none;
+                        background-clip: padding-box;
                    }
+                   
+                   QToolButton:first {
+                    }
+                    
+                    QToolButton:last {
+                    }
                    
                    QToolButton:disabled {
                         background-color: #CCCCCC;
@@ -59,41 +88,30 @@ class xlyy_GPT(QMainWindow, AbstractWindow):
                         color: #fff;
                         outline: none;
                         border: none;
-                        cursor: pointer;
                         padding: 10px 20px;
-                        -webkit-appearance: none;
                     }
 
                    QToolButton:hover {
                         background: dodgerblue;
                         color: #ffffff;
-                        transition: 0.5s all ease;
-                        -webkit-transition: 0.5s all ease;
-                        -moz-transition: 0.5s all ease;
-                        -o-transition: 0.5s all ease;
-                        -ms-transition: 0.5s all ease;
                    }         
                '''
         self.toolbar.setMovable(False)
         self.toolbar.setCursor(QCursor(Qt.ArrowCursor))
-        self.toolbar.setStyleSheet(actionStyle)
         self.toolbar.setContextMenuPolicy(Qt.CustomContextMenu)
         self.toolbar.mouseDoubleClickEvent = self.toggleMaximizeWindow
         self.toolbar.setMaximumHeight(38)
         self.addToolBar(self.toolbar)
-        #font = QFont('微软雅黑',8)
+
         self.back_action = QAction("后退", self)
-        self.back_action.setEnabled(False)
-        #self.back_action.setFont(font)
+        self.back_action.setEnabled(True)
         self.toolbar.addAction(self.back_action)
 
         self.forward_action = QAction("前进", self)
         self.forward_action.setEnabled(False)
-        #self.forward_action.setFont(font)
         self.toolbar.addAction(self.forward_action)
 
         self.refresh_action = QAction("刷新", self)
-        #self.refresh_action.setFont(font)
 
         self.toolbar.addAction(self.refresh_action)
 
@@ -119,7 +137,8 @@ class xlyy_GPT(QMainWindow, AbstractWindow):
         self.layout = QVBoxLayout()
         self.container.setLayout(self.layout)
         self.setCentralWidget(self.container)
-        self.web_view = PrivateEngineView()
+        self.web_view = PrivateEngineView(self.isStoreCache)
+        self.toolbar.setStyleSheet(actionStyle)
         self.layout.addWidget(self.web_view)
 
     def on_minimizeaction_clicked(self, event:QMouseEvent):
@@ -149,10 +168,12 @@ class xlyy_GPT(QMainWindow, AbstractWindow):
 
 
     def setWidgetFlags(self):
-        self.web_view.load(QUrl("https://www.baidu.com/"))
-        self.setWindowFlags(Qt.FramelessWindowHint | Qt.WindowSystemMenuHint | Qt.WindowMinMaxButtonsHint)
+        xmprint('当前加载的主页: ' + self.first_Page)
+        self.web_view.load(QUrl(self.first_Page))
+        #self.setWindowFlags(Qt.FramelessWindowHint | Qt.WindowSystemMenuHint | Qt.WindowMinMaxButtonsHint)
+        self.setWindowFlags(Qt.FramelessWindowHint)
+        self.setAttribute(Qt.WA_TranslucentBackground)
         self.setStyleSheet("""
-        
             QMainWindow {
                 font-family: monospace;
                 text-align: center;
@@ -161,25 +182,21 @@ class xlyy_GPT(QMainWindow, AbstractWindow):
                 background: #F5F5F5;
                 outline: none;
                 border: none;
-                cursor: pointer;
                 padding: 10px 20px;
-                -webkit-appearance: none;
             }
-            
         """)
+
 
     def paintEvent(self, event):
         painter = QPainter(self)
         painter.setRenderHint(QPainter.Antialiasing)
         painter.setPen(Qt.NoPen)
         painter.setBrush(Qt.white)
-
         path = QPainterPath()
         w, h = self.width(), self.height()
         radius = 20  # 圆角半径
         path.addRoundedRect(0, 0, w, h, radius, radius)
         painter.drawPath(path)
-
 
     def mousePressEvent(self, event: QMouseEvent):
         if event.button() == Qt.LeftButton:
@@ -198,6 +215,7 @@ class xlyy_GPT(QMainWindow, AbstractWindow):
     #back事件
     def update_back_button(self):
         self.back_action.setEnabled(self.web_view.history().canGoBack())
+
     #forward事件
     def update_forward_button(self):
         self.forward_action.setEnabled(self.web_view.history().canGoForward())

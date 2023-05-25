@@ -1,0 +1,7 @@
+#打包命令(pakage command)
+#先配置虚拟环境
+pip freeze > requirements.txt
+
+#打包
+pyinstaller --name poe.exe -F -w -i 'icons/logo.ico' 'src/xlyy_window/Main.py'
+pyinstaller --name gpt.exe -F -w -i 'icons/gpt.ico' 'src/xlyy_window/Main.py'

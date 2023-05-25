@@ -1,8 +1,6 @@
 from PyQt5.QtCore import QUrl
 from PyQt5.QtWidgets import QMainWindow, QLineEdit, QPushButton, QVBoxLayout, QWidget, QHBoxLayout
-
-from src.xlyy_window.gpt_mainWindow import PrivateEngineView
-
+from gpt_mainWindow import PrivateEngineView
 
 class test_Browser(QMainWindow):
     def __init__(self):

@@ -1,17 +1,18 @@
-import sys
 from PyQt5.QtCore import QUrl
-from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget, QToolBar, QPushButton, QLineEdit
-from PyQt5.QtWebEngineWidgets import QWebEngineView, QWebEngineProfile, QWebEnginePage, QWebEngineSettings, \
-    QWebEngineHistoryItem
-from src.common_utils.io_util import get_last_dir, is_executable
-from src.common_utils.sys_util import xmprint
+from PyQt5.QtWebEngineWidgets import QWebEngineView, QWebEngineProfile, QWebEnginePage
+from io_util import get_last_dir
+from sys_util import xmprint
 
 
 class PrivateEngineView(QWebEngineView):
-    def __init__(self):
+    def __init__(self,isStoredCashed:bool = True):
         super(PrivateEngineView, self).__init__()
-        self.load_privateCache()
-        #self.Traceless_load()
+        if isStoredCashed:
+            self.load_privateCache()
+            xmprint("开启存储浏览器缓存模式")
+        else:
+            self.Traceless_load()
+            xmprint("开启无痕模式")
         #self.page().urlChanged.connect(self.url_changed)
 
     #无痕模式
@@ -24,7 +25,7 @@ class PrivateEngineView(QWebEngineView):
     #保存缓存
     def load_privateCache(self):
         self.profile = QWebEngineProfile.defaultProfile()
-        self.profile.setCachePath(get_last_dir(5)+'\Cache\CachePath')
+        self.profile.setCachePath(get_last_dir(3)+'\Cache\CachePath')
         self.profile.setPersistentStoragePath(get_last_dir(3)+'\Cache\PersistentPath')
         self.profile.setDownloadPath(get_last_dir(3)+'\Cache\DownloadPath')
         self.profile.setHttpCacheType(QWebEngineProfile.DiskHttpCache)
@@ -46,6 +47,7 @@ class PrivateEngineView(QWebEngineView):
 
     def url_changed(self, url: QUrl):
         ...
+
 
 
 
