@@ -5,36 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="502977aa-c6f8-4787-bedf-66f803607bd6" name="变更" comment="">
-      <change afterPath="$PROJECT_DIR$/Configs/window_settings.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/icons/gpt.ico" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/chatgpt_qt5.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/chatgpt_qt5.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cache/PersistentPath/Cookies" beforeDir="false" afterPath="$PROJECT_DIR$/Cache/PersistentPath/Cookies" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cache/PersistentPath/GPUCache/data_1" beforeDir="false" afterPath="$PROJECT_DIR$/Cache/PersistentPath/GPUCache/data_1" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cache/PersistentPath/Local Storage/leveldb/LOG" beforeDir="false" afterPath="$PROJECT_DIR$/Cache/PersistentPath/Local Storage/leveldb/LOG" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cache/PersistentPath/Local Storage/leveldb/LOG.old" beforeDir="false" afterPath="$PROJECT_DIR$/Cache/PersistentPath/Local Storage/leveldb/LOG.old" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cache/PersistentPath/Local Storage/leveldb/MANIFEST-000001" beforeDir="false" afterPath="$PROJECT_DIR$/Cache/PersistentPath/Local Storage/leveldb/MANIFEST-000001" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cache/PersistentPath/Network Persistent State" beforeDir="false" afterPath="$PROJECT_DIR$/Cache/PersistentPath/Network Persistent State" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cache/PersistentPath/Platform Notifications/LOG" beforeDir="false" afterPath="$PROJECT_DIR$/Cache/PersistentPath/Platform Notifications/LOG" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cache/PersistentPath/Platform Notifications/LOG.old" beforeDir="false" afterPath="$PROJECT_DIR$/Cache/PersistentPath/Platform Notifications/LOG.old" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cache/PersistentPath/Session Storage/000008.log" beforeDir="false" afterPath="$PROJECT_DIR$/Cache/PersistentPath/Session Storage/000008.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cache/PersistentPath/Session Storage/LOG" beforeDir="false" afterPath="$PROJECT_DIR$/Cache/PersistentPath/Session Storage/LOG" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cache/PersistentPath/Session Storage/LOG.old" beforeDir="false" afterPath="$PROJECT_DIR$/Cache/PersistentPath/Session Storage/LOG.old" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cache/PersistentPath/TransportSecurity" beforeDir="false" afterPath="$PROJECT_DIR$/Cache/PersistentPath/TransportSecurity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cache/PersistentPath/Visited Links" beforeDir="false" afterPath="$PROJECT_DIR$/Cache/PersistentPath/Visited Links" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/close.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/common_utils/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/common_utils/config_util.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/xlyy_window/config_util.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/common_utils/database_utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/xlyy_window/database_utils.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/common_utils/io_util.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/xlyy_window/io_util.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/common_utils/str_util.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/xlyy_window/str_util.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/common_utils/sys_util.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/xlyy_window/sys_util.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/common_utils/window_util.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/xlyy_window/window_util.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/xlyy_window/Main.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/xlyy_window/Main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/xlyy_window/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/xlyy_window/gpt_mainWindow.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/xlyy_window/gpt_mainWindow.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/xlyy_window/test_window.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/xlyy_window/test_window.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/xlyy_window/xlyyEngineView.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/xlyy_window/xlyyEngineView.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -156,6 +127,7 @@
       <workItem from="1685038479299" duration="14000" />
       <workItem from="1685039345927" duration="699000" />
       <workItem from="1685040255621" duration="183000" />
+      <workItem from="1685040575584" duration="51000" />
     </task>
     <servers />
   </component>
