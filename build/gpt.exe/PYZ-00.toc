@@ -328,6 +328,10 @@
   ('typing',
    'F:\\visual stdio\\tools\\Python311_86\\Lib\\typing.py',
    'PYMODULE'),
+  ('win32con',
+   'F:\\visual '
+   'stdio\\tools\\Python311_86\\Lib\\site-packages\\win32\\lib\\win32con.py',
+   'PYMODULE'),
   ('xlyyEngineView',
    'F:\\python project\\chatgpt_qt5\\src\\xlyy_window\\xlyyEngineView.py',
    'PYMODULE'),

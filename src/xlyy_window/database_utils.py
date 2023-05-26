@@ -12,7 +12,7 @@ class commitStatus(Enum):
     manual_commit = 0  # 开启事务了
     auto_commit = 1 # 自动提交模式(default)
 '''
- 数据库基本工具类
+ 数据库工具类
 '''
 
 @dataclass
@@ -62,7 +62,7 @@ class basic_db:
         try:
             if not self.is_database_exists(db_name):
                 self.create_database(db_name)
-                print(f"[学籍管理系统] 检测到库不存在,已创建库[{db_name}]!")
+                print(f"检测到库不存在,已创建库[{db_name}]!")
             self.connection.select_db(db_name)
         except pymysql.err.OperationalError as e:
             print(f"连接库{db_name}失败: ")
@@ -89,8 +89,6 @@ class basic_db:
         if result == 0:
             return commitStatus.manual_commit
     def data_to_list(self,data:str) -> list[str]:
-        #例如["古代课程1", "古代课程2", "埃及课程1", "埃及课程2"]
-        #r = eval('["古代课程1", "古代课程2", "埃及课程1", "埃及课程2"]')
         return eval(data)
     def data_to_list2(self,data:str) -> list[str]:
         data = json.loads(data)
@@ -188,21 +186,3 @@ class basic_db:
                 self.disconnect_mysql_server()
         finally:
             ...
-
-def test():
-    host = 'localhost'
-    port = 3306
-    user = 'root'
-    password = 'password'
-    # db = basic_db(host, port, user, password, charset='utf8')
-    # db.connect_mysql_server(commitStatus.manual_commit)
-    # db.connect_database("cdadb")
-    # result = db.execute_sql_language("select * from student_status")
-    # print(result)
-    con:pymysql.connections.Connection = pymysql.connect(host=host,port=port,user=user,password=password)
-    b1 = basic_db.getInstance(con)
-    b2 = basic_db.getInstance(host=host,port=port,user=user,password=password)
-    b1.connect_mysql_server(commitStatus.manual_commit)
-
-if __name__ == '__main__':
-    test()

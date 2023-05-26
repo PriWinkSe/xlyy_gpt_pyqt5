@@ -1,14 +1,20 @@
 import json
+import sys
 
-from PyQt5.QtCore import Qt, QPoint
+from PyQt5 import QtGui
+from PyQt5.QtCore import Qt, QPoint, QEvent
 from PyQt5.QtCore import QUrl
 from PyQt5.QtGui import QIcon, QMouseEvent, QPainter, QPainterPath, QCursor
-from PyQt5.QtWidgets import QMainWindow, QVBoxLayout, QWidget, QToolBar, QSizePolicy, QAction
+from PyQt5.QtWidgets import QMainWindow, QVBoxLayout, QWidget, QToolBar, QSizePolicy, QAction, QSystemTrayIcon, QMenu, \
+    QApplication
 from abstract_window import AbstractWindow
 from io_util import get_last_dir,get_center_screenGeometry
 from str_util import String
 from sys_util import xmprint
 from xlyyEngineView import PrivateEngineView
+import win32con
+import win32gui
+import win32api
 
 
 class xlyy_GPT(QMainWindow, AbstractWindow):
@@ -140,6 +146,28 @@ class xlyy_GPT(QMainWindow, AbstractWindow):
         self.web_view = PrivateEngineView(self.isStoreCache)
         self.toolbar.setStyleSheet(actionStyle)
         self.layout.addWidget(self.web_view)
+        self.tray_icon = QSystemTrayIcon(self)
+        self.tray_icon.setIcon(QIcon(get_last_dir(3) + self.windowIconPath))
+        # 将任务栏图标显示到系统托盘
+        # 创建任务栏图标菜单
+        self.tray_menu = QMenu(self)
+        # 创建菜单项
+        self.show_action = QAction("打开", self)
+        self.exit_action = QAction("关闭", self)
+        # 将菜单项添加到菜单中
+        self.tray_menu.addAction(self.show_action)
+        self.tray_menu.addSeparator()
+        self.tray_menu.addAction(self.exit_action)
+        self.tray_icon.setContextMenu(self.tray_menu)
+        self.tray_icon.show()
+
+    #托盘点击打开按钮
+    def showEvent(self, event):
+        if self.isMinimized():
+            self.showNormal()
+    #托盘点击关闭按钮
+    def actionCloseEvent(self, event):
+        sys.exit()
 
     def on_minimizeaction_clicked(self, event:QMouseEvent):
         self.setWindowState(Qt.WindowMinimized)
@@ -157,7 +185,7 @@ class xlyy_GPT(QMainWindow, AbstractWindow):
             self.showMaximized()
 
     def on_closeeaction_clicked(self, event:QMouseEvent):
-        self.close()
+        sys.exit()
 
     def regEvents(self):
         self.web_view.urlChanged.connect(self.update_back_button)
@@ -165,6 +193,21 @@ class xlyy_GPT(QMainWindow, AbstractWindow):
         self.back_action.triggered.connect(self.web_view.back)
         self.forward_action.triggered.connect(self.web_view.forward)
         self.refresh_action.triggered.connect(self.web_view.reload)
+        # 连接任务栏图标的点击事件到槽函数
+        self.tray_icon.activated.connect(self.handle_tray_icon_activation)
+        self.show_action.triggered.connect(self.showEvent)
+        self.exit_action.triggered.connect(self.actionCloseEvent)
+
+
+
+    #在系统托盘里  左键的事件
+    def handle_tray_icon_activation(self, reason):
+        if reason == QSystemTrayIcon.Trigger:
+            if self.isMinimized():
+                self.showNormal()
+
+    def closeEvent(self, a0: QtGui.QCloseEvent) -> None:
+        sys.exit()
 
 
     def setWidgetFlags(self):
@@ -172,6 +215,7 @@ class xlyy_GPT(QMainWindow, AbstractWindow):
         self.web_view.load(QUrl(self.first_Page))
         #self.setWindowFlags(Qt.FramelessWindowHint | Qt.WindowSystemMenuHint | Qt.WindowMinMaxButtonsHint)
         self.setWindowFlags(Qt.FramelessWindowHint)
+        self.setWindowFlags(Qt.Window | Qt.FramelessWindowHint | Qt.WindowMinMaxButtonsHint)
         self.setAttribute(Qt.WA_TranslucentBackground)
         self.setStyleSheet("""
             QMainWindow {
